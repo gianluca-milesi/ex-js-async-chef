@@ -1,8 +1,8 @@
-// async function fetchJson(url) {
-//     const response = await fetch(url)
-//     const obj = await response.json()
-//     return obj
-// }
+async function fetchJson(url) {
+    const response = await fetch(url)
+    const obj = await response.json()
+    return obj
+}
 
 // const getChefBirthday = async (id) => {
 //     const recipe = await fetchJson(`https://dummyjson.com/recipes/${id}`)
@@ -16,12 +16,6 @@
 // })()
 
 
-async function fetchJson(url) {
-    const response = await fetch(url)
-    const obj = await response.json()
-    return obj
-}
-
 async function getChefBirthday(id) {
 
     let recipe
@@ -29,6 +23,10 @@ async function getChefBirthday(id) {
         recipe = await fetchJson(`https://dummyjson.com/recipes/${id}`)
     } catch (error) {
         throw new Error(`Non posso recuperare la ricetta con id: ${id}`)
+    }
+
+    if (!recipe) {
+        throw new Error(`Ricetta con id: ${id} non valida`)
     }
 
     let user
@@ -41,6 +39,6 @@ async function getChefBirthday(id) {
     return user.birthDate
 }
 
-getChefBirthday(1)
+getChefBirthday(1335)
     .then(birthday => console.log("Data di nascita dello chef:", birthday))
     .catch(error => console.error("Errore:", error.message));
